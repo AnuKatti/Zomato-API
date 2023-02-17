@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 let mongo = require('mongodb');
-let MongoClient = mongo.MongoClient;
+let MongoClient = "mongodb+srv://local:test1234@cluster0.f8vmc.mongodb.net/augintern?retryWrites=true&w=majority";
 let dotenv = require('dotenv');
 dotenv.config();
 let mongoUrl = process.env.MongoUrl;
@@ -192,10 +192,7 @@ app.delete(`/removeOrder`,(req,res) => {
     })
 })
 
-
-
-
-MongoClient.connect(mongoUrl,(err,client) => {
+MongoClient.connect(mongoUrl, {useNewUrlParser : true},(err,client) => {
     if(err) console.log(`Error While Connecting to mongo`);
     db = client.db('internfeb')
     app.listen(port,() => {
